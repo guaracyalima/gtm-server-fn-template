@@ -1,3 +1,3 @@
-var name = data.nomeCompleto;
-var words = name.substring(name.indexOf(" "), name.length).toLocaleLowerCase();
+var name = data.nome;
+var words = name.substring(0, name.indexOf(" "));
 return words;

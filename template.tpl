@@ -13,8 +13,8 @@ ___INFO___
   "id": "cvt_temp_public_id",
   "version": 1,
   "securityGroups": [],
-  "displayName": "serverGetLastName",
-  "description": "get last  name on server container with data from event data or webhook",
+  "displayName": "serverGetFirstName",
+  "description": "get first name from webhook or event data",
   "containerContexts": [
     "SERVER"
   ]
@@ -26,7 +26,7 @@ ___TEMPLATE_PARAMETERS___
 [
   {
     "type": "TEXT",
-    "name": "nomeCompleto",
+    "name": "nome",
     "displayName": "",
     "simpleValueType": true
   }
@@ -36,8 +36,9 @@ ___TEMPLATE_PARAMETERS___
 ___SANDBOXED_JS_FOR_SERVER___
 
 // Insira aqui o código do modelo.
-var name = data.nomeCompleto;
-var words = name.substring(name.indexOf(' '), name.length).toLocaleLowerCase();
+var name = data.nome;
+var words = name.substring(0, name.indexOf(' '));
+// As variáveis precisam retornar um valor.
 return words;
 
 
@@ -47,7 +48,7 @@ scenarios:
 - name: oracio vieira
   code: |-
     const mockData = {
-    nomeCompleto: 'oracio vieira de oliveira berario'
+    nome: 'oracio vieira'
     };
 
     // Call runCode to run the template's code.
@@ -58,7 +59,7 @@ scenarios:
 - name: single name
   code: |-
     const mockData = {
-    nomeCompleto: 'mandioca'
+    nome: 'mandioca'
     };
 
     // Call runCode to run the template's code.
@@ -69,7 +70,18 @@ scenarios:
 - name: null name
   code: |-
     const mockData = {
-    nomeCompleto: ''
+    nome: ''
+    };
+
+    // Call runCode to run the template's code.
+    let variableResult = runCode(mockData);
+
+    // Verify that the variable returns a result.
+    assertThat(variableResult).isNotEqualTo(undefined);
+- name: Untitled test 4
+  code: |-
+    const mockData = {
+    nome: 'xubaca vieira'
     };
 
     // Call runCode to run the template's code.
@@ -81,6 +93,6 @@ scenarios:
 
 ___NOTES___
 
-Created on 21/03/2024, 07:13:59
+Created on 21/03/2024, 08:23:23
 
 
